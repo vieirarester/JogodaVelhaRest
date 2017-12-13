@@ -16,37 +16,42 @@ import javax.ws.rs.QueryParam;
 @Path("jogo")
 public class Jogo {
 
-    private String[][] board = {{"1", "2", "3"}, 
-                                {"4", "5", "6"}, 
-                                {"7", "8", "9"}};
+    static String[][] tabuleiro = {{"1", "2", "3"}, {"4", "5", "6"}, {"7", "8", "9"}};
+    static Jogo tabuleiroJogo = new Jogo();
+    static boolean comecou = true;
+    static String peca;
+    static int jogadas = 0;
 
-    @GET
-    @Path("boasVindas")
-    public String boasVindas() {
-        String nome = "Ester";
-        return "<h1>Ola, " + nome + "</h1>";
-    }
-    
-    public String showBoard() {
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                System.out.print("   " + board[i][j]);
-            }
-            System.out.println("\n");
-        }
-        return null;
+    static int vez = 1;
+
+    public static String[][] getTabuleiro() {
+        return tabuleiro;
     }
 
-    @GET
-    @Path("mostrar")
+    public static void setTabuleiro(String[][] tabuleiro) {
+        Jogo.tabuleiro = tabuleiro;
+    }
+
     public String mostrarTabuleiro() {
-        return showBoard();
+        String mostrarTabuleiro = "";
+        for (int i = 0; i < tabuleiro.length; i++) {
+            for (int j = 0; j < tabuleiro.length; j++) {
+                mostrarTabuleiro += tabuleiro[i][j] + " |";
+            }
+            mostrarTabuleiro = mostrarTabuleiro + "<br>";
+        }
+        return mostrarTabuleiro;
     }
-    
-    @GET
-    @Path("jogar")
-    public String fazerJogada(@QueryParam("jogada") String jogada){
-        return jogada;
+
+    public String mudarJogador() {
+        if (vez == 1) {
+            peca = "X";
+            vez++;
+        } else {
+            peca = "O";
+            vez = 1;
+        }
+        return peca;
     }
 
     @GET
@@ -54,5 +59,29 @@ public class Jogo {
     public String somar(@QueryParam("n1") int numero1, @QueryParam("n2") int numero2) {
         int resultado = numero1 + numero2;
         return Integer.toString(resultado);
+    }
+
+    @GET
+    @Path("jogar")
+    public String jogar(@QueryParam("j") String jogada) {
+        if (comecou == true) {
+            comecou = false;
+            return Jogo.this.mostrarTabuleiro();
+        }
+
+        Tabuleiro t = new Tabuleiro();
+
+        if (!(t.verificarJogada(jogada, tabuleiroJogo))) {
+            return tabuleiroJogo.mostrarTabuleiro() + "<br" + "<h1>Jogada invalida! Por favor, jogue novamente: </br>";
+        } else{
+            mudarJogador();
+            t.fazerJogada(jogada, peca, tabuleiroJogo);
+        }
+        
+        if(t.verificarVencedor(jogadas, tabuleiroJogo)!=null){
+            comecou = true;
+            return t.verificarVencedor(jogadas, tabuleiroJogo);
+        }
+        return tabuleiroJogo.mostrarTabuleiro();
     }
 }

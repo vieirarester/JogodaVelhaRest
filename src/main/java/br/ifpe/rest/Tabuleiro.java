@@ -11,22 +11,11 @@ package br.ifpe.rest;
  */
 public class Tabuleiro {
 
-    private final String[][] t = {{"1", "2", "3"}, {"4", "5", "6"}, {"7", "8", "9"}};
-
-    public String mostrarTabuleiro() {
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                System.out.print("   " + t[i][j]);
-            }
-            System.out.println("\n");
-        }
-        return null;
-    }
-
-    public boolean verificarJogada(String jogada) {
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                if (t[i][j].equals(jogada)) {
+    
+    public boolean verificarJogada(String jogada, Jogo tabuleiro) {
+        for (int i = 0; i < tabuleiro.tabuleiro.length; i++) {
+            for (int j = 0; j < tabuleiro.tabuleiro.length; j++) {
+                if (tabuleiro.tabuleiro[i][j].equals(jogada)) {
                     return true;
                 }
             }
@@ -34,29 +23,29 @@ public class Tabuleiro {
         return false;
     }
 
-    public void fazerJogada(String jogada, String peca) {
+    public void fazerJogada(String jogada, String peca, Jogo tabuleiro) {
         if (jogada.equals("1")) {
-            t[0][0] = peca;
+            tabuleiro.tabuleiro[0][0] = peca;
         } else if (jogada.equals("2")) {
-            t[0][1] = peca;
+            tabuleiro.tabuleiro[0][1] = peca;
         } else if (jogada.equals("3")) {
-            t[0][2] = peca;
+            tabuleiro.tabuleiro[0][2] = peca;
         } else if (jogada.equals("4")) {
-            t[1][0] = peca;
+            tabuleiro.tabuleiro[1][0] = peca;
         } else if (jogada.equals("5")) {
-            t[1][1] = peca;
+            tabuleiro.tabuleiro[1][1] = peca;
         } else if (jogada.equals("6")) {
-            t[1][2] = peca;
+            tabuleiro.tabuleiro[1][2] = peca;
         } else if (jogada.equals("7")) {
-            t[2][0] = peca;
+            tabuleiro.tabuleiro[2][0] = peca;
         } else if (jogada.equals("8")) {
-            t[2][1] = peca;
+            tabuleiro.tabuleiro[2][1] = peca;
         } else if (jogada.equals("9")) {
-            t[2][2] = peca;
+            tabuleiro.tabuleiro[2][2] = peca;
         }
     }
 
-    public String verificarVencedor(int jogadas) {
+    public String verificarVencedor(int jogadas, Jogo tabuleiro) {
         String[] vitoria = new String[8];
 
         String vencedor = null;
@@ -65,16 +54,16 @@ public class Tabuleiro {
             vencedor = "DEU VELHA!";
         }
 
-        vitoria[0] = t[0][0] + t[0][1] + t[0][2];
-        vitoria[1] = t[1][0] + t[1][1] + t[1][2];
-        vitoria[2] = t[2][0] + t[2][1] + t[2][2];
+        vitoria[0] = tabuleiro.tabuleiro[0][0] + tabuleiro.tabuleiro[0][1] + tabuleiro.tabuleiro[0][2];
+        vitoria[1] = tabuleiro.tabuleiro[1][0] + tabuleiro.tabuleiro[1][1] + tabuleiro.tabuleiro[1][2];
+        vitoria[2] = tabuleiro.tabuleiro[2][0] + tabuleiro.tabuleiro[2][1] + tabuleiro.tabuleiro[2][2];
 
-        vitoria[3] = t[0][0] + t[1][0] + t[2][0];
-        vitoria[4] = t[0][1] + t[1][1] + t[2][1];
-        vitoria[5] = t[0][2] + t[1][2] + t[2][2];
+        vitoria[3] = tabuleiro.tabuleiro[0][0] + tabuleiro.tabuleiro[1][0] + tabuleiro.tabuleiro[2][0];
+        vitoria[4] = tabuleiro.tabuleiro[0][1] + tabuleiro.tabuleiro[1][1] + tabuleiro.tabuleiro[2][1];
+        vitoria[5] = tabuleiro.tabuleiro[0][2] + tabuleiro.tabuleiro[1][2] + tabuleiro.tabuleiro[2][2];
 
-        vitoria[6] = t[0][0] + t[1][1] + t[2][2];
-        vitoria[7] = t[2][0] + t[1][1] + t[0][2];
+        vitoria[6] = tabuleiro.tabuleiro[0][0] + tabuleiro.tabuleiro[1][1] + tabuleiro.tabuleiro[2][2];
+        vitoria[7] = tabuleiro.tabuleiro[2][0] + tabuleiro.tabuleiro[1][1] + tabuleiro.tabuleiro[0][2];
 
         for (int i = 0; i < vitoria.length; i++) {
             if (vitoria[i].equals("xxx")) {
