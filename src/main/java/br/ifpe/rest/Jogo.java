@@ -66,22 +66,26 @@ public class Jogo {
     public String jogar(@QueryParam("j") String jogada) {
         if (comecou == true) {
             comecou = false;
-            return Jogo.this.mostrarTabuleiro();
+            return "<h1><center>::::Jogo da Velha::::</center></h1><br>"
+                    + "<h1><center>" + Jogo.this.mostrarTabuleiro() + "</center></h1>";
         }
 
         Tabuleiro t = new Tabuleiro();
 
         if (!(t.verificarJogada(jogada, tabuleiroJogo))) {
-            return tabuleiroJogo.mostrarTabuleiro() + "<br" + "<h1>Jogada invalida! Por favor, jogue novamente: </br>";
-        } else{
+            return "<h1><center>::::Jogo da Velha::::</center></h1><br>"
+                    + "<h1><center>" + tabuleiroJogo.mostrarTabuleiro() + "<br>" + "Jogada invalida! Por favor, jogue novamente: </center></h1>";
+        } else {
             mudarJogador();
             t.fazerJogada(jogada, peca, tabuleiroJogo);
+            jogadas++;
         }
-        
-        if(t.verificarVencedor(jogadas, tabuleiroJogo)!=null){
+
+        if (t.verificarVencedor(jogadas, tabuleiroJogo) != null) {
             comecou = true;
             return t.verificarVencedor(jogadas, tabuleiroJogo);
         }
-        return tabuleiroJogo.mostrarTabuleiro();
+        return "<h1><center>::::Jogo da Velha::::</center></h1><br>"
+                + "<h1><center>" + Jogo.this.mostrarTabuleiro() + "</center></h1>";
     }
 }

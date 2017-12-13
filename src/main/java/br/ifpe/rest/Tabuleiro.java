@@ -11,7 +11,6 @@ package br.ifpe.rest;
  */
 public class Tabuleiro {
 
-    
     public boolean verificarJogada(String jogada, Jogo tabuleiro) {
         for (int i = 0; i < tabuleiro.tabuleiro.length; i++) {
             for (int j = 0; j < tabuleiro.tabuleiro.length; j++) {
@@ -51,25 +50,25 @@ public class Tabuleiro {
         String vencedor = null;
 
         if (jogadas == 9) {
-            vencedor = "DEU VELHA!";
+            vencedor = "<h1><center>DEU VELHA!</center></h1>";
         }
 
-        vitoria[0] = tabuleiro.tabuleiro[0][0] + tabuleiro.tabuleiro[0][1] + tabuleiro.tabuleiro[0][2];
-        vitoria[1] = tabuleiro.tabuleiro[1][0] + tabuleiro.tabuleiro[1][1] + tabuleiro.tabuleiro[1][2];
-        vitoria[2] = tabuleiro.tabuleiro[2][0] + tabuleiro.tabuleiro[2][1] + tabuleiro.tabuleiro[2][2];
+        vitoria[0] = tabuleiro.tabuleiro[0][0] + " |" + tabuleiro.tabuleiro[0][1] + " |" + tabuleiro.tabuleiro[0][2];
+        vitoria[1] = tabuleiro.tabuleiro[1][0] + " |" + tabuleiro.tabuleiro[1][1] + " |" + tabuleiro.tabuleiro[1][2];
+        vitoria[2] = tabuleiro.tabuleiro[2][0] + " |" + tabuleiro.tabuleiro[2][1] + " |" + tabuleiro.tabuleiro[2][2];
 
-        vitoria[3] = tabuleiro.tabuleiro[0][0] + tabuleiro.tabuleiro[1][0] + tabuleiro.tabuleiro[2][0];
-        vitoria[4] = tabuleiro.tabuleiro[0][1] + tabuleiro.tabuleiro[1][1] + tabuleiro.tabuleiro[2][1];
-        vitoria[5] = tabuleiro.tabuleiro[0][2] + tabuleiro.tabuleiro[1][2] + tabuleiro.tabuleiro[2][2];
+        vitoria[3] = tabuleiro.tabuleiro[0][0] + " |" + tabuleiro.tabuleiro[1][0] + " |" + tabuleiro.tabuleiro[2][0];
+        vitoria[4] = tabuleiro.tabuleiro[0][1] + " |" + tabuleiro.tabuleiro[1][1] + " |" + tabuleiro.tabuleiro[2][1];
+        vitoria[5] = tabuleiro.tabuleiro[0][2] + " |" + tabuleiro.tabuleiro[1][2] + " |" + tabuleiro.tabuleiro[2][2];
 
-        vitoria[6] = tabuleiro.tabuleiro[0][0] + tabuleiro.tabuleiro[1][1] + tabuleiro.tabuleiro[2][2];
-        vitoria[7] = tabuleiro.tabuleiro[2][0] + tabuleiro.tabuleiro[1][1] + tabuleiro.tabuleiro[0][2];
+        vitoria[6] = tabuleiro.tabuleiro[0][0] + " |" + tabuleiro.tabuleiro[1][1] + " |" + tabuleiro.tabuleiro[2][2];
+        vitoria[7] = tabuleiro.tabuleiro[2][0] + " |" + tabuleiro.tabuleiro[1][1] + " |" + tabuleiro.tabuleiro[0][2];
 
         for (int i = 0; i < vitoria.length; i++) {
-            if (vitoria[i].equals("xxx")) {
-                vencedor = "JOGADOR 1 VENCEU!";
-            } else if (vitoria[i].equals("ooo")) {
-                vencedor = "JOGADOR 2 VENCEU!";
+            if (vitoria[i].equals("X |X |X")) {
+                vencedor = "<h1><center>JOGADOR 1 VENCEU!</center></h1>";
+            } else if (vitoria[i].equals("O |O |O")) {
+                vencedor = "<h1><center>JOGADOR 2 VENCEU!</center></h1>";
             }
         }
         return vencedor;
