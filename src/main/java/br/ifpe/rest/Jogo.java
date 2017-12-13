@@ -21,16 +21,7 @@ public class Jogo {
     static boolean comecou = true;
     static String peca;
     static int jogadas = 0;
-
     static int vez = 1;
-
-    public static String[][] getTabuleiro() {
-        return tabuleiro;
-    }
-
-    public static void setTabuleiro(String[][] tabuleiro) {
-        Jogo.tabuleiro = tabuleiro;
-    }
 
     public String mostrarTabuleiro() {
         String mostrarTabuleiro = "";
@@ -54,13 +45,6 @@ public class Jogo {
             vez = 1;
         }
         return peca;
-    }
-
-    @GET
-    @Path("somar")
-    public String somar(@QueryParam("n1") int numero1, @QueryParam("n2") int numero2) {
-        int resultado = numero1 + numero2;
-        return Integer.toString(resultado);
     }
 
     @GET
