@@ -11,40 +11,75 @@ package br.ifpe.rest;
  */
 public class Tabuleiro {
 
-    public boolean verificarJogada(String jogada, Jogo tabuleiro) {
-        for (int i = 0; i < tabuleiro.tabuleiro.length; i++) {
-            for (int j = 0; j < tabuleiro.tabuleiro.length; j++) {
-                if (tabuleiro.tabuleiro[i][j].equals(jogada)) {
+    static String peca;
+    static int jogadas = 0;
+    static String[][] tabuleiro = {{"1", "2", "3"}, {"4", "5", "6"}, {"7", "8", "9"}};
+
+    public String resetarTabuleiro(){
+        String tabuleiroResetado="";
+        
+        tabuleiro[0][0]="1";
+        tabuleiro[0][1]="2";
+        tabuleiro[0][2]="3";
+        tabuleiro[1][0]="4";
+        tabuleiro[1][1]="5";
+        tabuleiro[1][2]="6";
+        tabuleiro[2][0]="7";
+        tabuleiro[2][1]="8";
+        tabuleiro[2][2]="9";
+        
+        tabuleiroResetado+=tabuleiro;
+        return tabuleiroResetado;
+    }
+    
+    public boolean verificarJogada(String jogada, String[][] tabuleiro) {
+        for (int i = 0; i < tabuleiro.length; i++) {
+            for (int j = 0; j < tabuleiro.length; j++) {
+                if (tabuleiro[i][j].equals(jogada)) {
                     return true;
                 }
             }
         }
         return false;
     }
-
-    public void fazerJogada(String jogada, String peca, Jogo tabuleiro) {
-        if (jogada.equals("1")) {
-            tabuleiro.tabuleiro[0][0] = peca;
-        } else if (jogada.equals("2")) {
-            tabuleiro.tabuleiro[0][1] = peca;
-        } else if (jogada.equals("3")) {
-            tabuleiro.tabuleiro[0][2] = peca;
-        } else if (jogada.equals("4")) {
-            tabuleiro.tabuleiro[1][0] = peca;
-        } else if (jogada.equals("5")) {
-            tabuleiro.tabuleiro[1][1] = peca;
-        } else if (jogada.equals("6")) {
-            tabuleiro.tabuleiro[1][2] = peca;
-        } else if (jogada.equals("7")) {
-            tabuleiro.tabuleiro[2][0] = peca;
-        } else if (jogada.equals("8")) {
-            tabuleiro.tabuleiro[2][1] = peca;
-        } else if (jogada.equals("9")) {
-            tabuleiro.tabuleiro[2][2] = peca;
+    
+    public String mostrarTabuleiro() {
+        String mostrar = "";
+        mostrar += "<table align=\"center\" border=\"6\" style=\"width: 300px; height: 300px\">";
+        for (int i = 0; i < tabuleiro.length; i++) {
+            mostrar += "<tr>";
+            for (int j = 0; j < tabuleiro.length; j++) {
+                mostrar += "<td style=\"width: 93px\"><h1 id=\"1\" align=\"center\">" + tabuleiro[i][j] + "</h1></td>";
+            }
+            mostrar = mostrar + "</tr>";
         }
+        return mostrar;
     }
 
-    public String verificarVencedor(int jogadas, Jogo tabuleiro) {
+    public void fazerJogada(String jogada, String peca, String[][] tabuleiro) {
+        if (jogada.equals("1")) {
+            tabuleiro[0][0] = peca;
+        } else if (jogada.equals("2")) {
+            tabuleiro[0][1] = peca;
+        } else if (jogada.equals("3")) {
+            tabuleiro[0][2] = peca;
+        } else if (jogada.equals("4")) {
+            tabuleiro[1][0] = peca;
+        } else if (jogada.equals("5")) {
+            tabuleiro[1][1] = peca;
+        } else if (jogada.equals("6")) {
+            tabuleiro[1][2] = peca;
+        } else if (jogada.equals("7")) {
+            tabuleiro[2][0] = peca;
+        } else if (jogada.equals("8")) {
+            tabuleiro[2][1] = peca;
+        } else if (jogada.equals("9")) {
+            tabuleiro[2][2] = peca;
+        }
+        jogadas++;
+    }
+
+    public String verificarVencedor(int jogadas, String[][] tabuleiro) {
         String[] vitoria = new String[8];
 
         String vencedor = null;
@@ -53,16 +88,16 @@ public class Tabuleiro {
             vencedor = "<h1><center>DEU VELHA!</center></h1>";
         }
 
-        vitoria[0] = tabuleiro.tabuleiro[0][0] + " |" + tabuleiro.tabuleiro[0][1] + " |" + tabuleiro.tabuleiro[0][2];
-        vitoria[1] = tabuleiro.tabuleiro[1][0] + " |" + tabuleiro.tabuleiro[1][1] + " |" + tabuleiro.tabuleiro[1][2];
-        vitoria[2] = tabuleiro.tabuleiro[2][0] + " |" + tabuleiro.tabuleiro[2][1] + " |" + tabuleiro.tabuleiro[2][2];
+        vitoria[0] = tabuleiro[0][0] + " |" + tabuleiro[0][1] + " |" + tabuleiro[0][2];
+        vitoria[1] = tabuleiro[1][0] + " |" + tabuleiro[1][1] + " |" + tabuleiro[1][2];
+        vitoria[2] = tabuleiro[2][0] + " |" + tabuleiro[2][1] + " |" + tabuleiro[2][2];
 
-        vitoria[3] = tabuleiro.tabuleiro[0][0] + " |" + tabuleiro.tabuleiro[1][0] + " |" + tabuleiro.tabuleiro[2][0];
-        vitoria[4] = tabuleiro.tabuleiro[0][1] + " |" + tabuleiro.tabuleiro[1][1] + " |" + tabuleiro.tabuleiro[2][1];
-        vitoria[5] = tabuleiro.tabuleiro[0][2] + " |" + tabuleiro.tabuleiro[1][2] + " |" + tabuleiro.tabuleiro[2][2];
+        vitoria[3] = tabuleiro[0][0] + " |" + tabuleiro[1][0] + " |" + tabuleiro[2][0];
+        vitoria[4] = tabuleiro[0][1] + " |" + tabuleiro[1][1] + " |" + tabuleiro[2][1];
+        vitoria[5] = tabuleiro[0][2] + " |" + tabuleiro[1][2] + " |" + tabuleiro[2][2];
 
-        vitoria[6] = tabuleiro.tabuleiro[0][0] + " |" + tabuleiro.tabuleiro[1][1] + " |" + tabuleiro.tabuleiro[2][2];
-        vitoria[7] = tabuleiro.tabuleiro[2][0] + " |" + tabuleiro.tabuleiro[1][1] + " |" + tabuleiro.tabuleiro[0][2];
+        vitoria[6] = tabuleiro[0][0] + " |" + tabuleiro[1][1] + " |" + tabuleiro[2][2];
+        vitoria[7] = tabuleiro[2][0] + " |" + tabuleiro[1][1] + " |" + tabuleiro[0][2];
 
         for (int i = 0; i < vitoria.length; i++) {
             if (vitoria[i].equals("X |X |X")) {

@@ -5,74 +5,61 @@
  */
 package br.ifpe.rest;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.QueryParam;
-
 /**
  *
  * @author Ester
  */
-@Path("jogo")
 public class Jogo {
 
-    static String[][] tabuleiro = {{"1", "2", "3"}, {"4", "5", "6"}, {"7", "8", "9"}};
-    static Jogo tabuleiroJogo = new Jogo();
-    static boolean comecou = true;
-    static String peca;
-    static int jogadas = 0;
+    static Tabuleiro tabuleiro = new Tabuleiro();
     static int vez = 1;
-
-    public String mostrarTabuleiro() {
-        String mostrarTabuleiro = "";
-        mostrarTabuleiro += "<table align=\"center\" border=\"6\" style=\"width: 300px; height: 300px\">";
-        for (int i = 0; i < tabuleiro.length; i++) {
-            mostrarTabuleiro += "<tr>";
-            for (int j = 0; j < tabuleiro.length; j++) {
-                mostrarTabuleiro += "<td style=\"width: 93px\"><h1 id=\"1\" align=\"center\">" + tabuleiro[i][j] + "</h1></td>";
-            }
-            mostrarTabuleiro = mostrarTabuleiro + "</tr>";
-        }
-        return mostrarTabuleiro;
-    }
+    static boolean comecou = true;
 
     public String mudarJogador() {
         if (vez == 1) {
-            peca = "X";
+            tabuleiro.peca = "X";
             vez++;
         } else {
-            peca = "O";
+            tabuleiro.peca = "O";
             vez = 1;
         }
-        return peca;
+        return tabuleiro.peca;
     }
 
-    @GET
-    @Path("jogar")
-    public String jogar(@QueryParam("j") String jogada) {
+    public String jogar(String jogada) {
+
         if (comecou == true) {
             comecou = false;
-            return "<h1><center>::::Jogo da Velha::::</center></h1><br>"
-                    + "<h1><center>" + Jogo.this.mostrarTabuleiro() + "</center></h1>";
+            return resetarJogo();
         }
 
-        Tabuleiro t = new Tabuleiro();
-
-        if (!(t.verificarJogada(jogada, tabuleiroJogo))) {
+        if (tabuleiro.verificarJogada(jogada, tabuleiro.tabuleiro) == false) {
             return "<h1><center>::::Jogo da Velha::::</center></h1><br>"
-                    + "<h1><center>" + tabuleiroJogo.mostrarTabuleiro() + "Jogada incorreta! Por favor, jogue novamente: </center></h1></br>";
+                    + "<h2><center>" + tabuleiro.mostrarTabuleiro() + "Jogada incorreta! Por favor, jogue novamente: </center></h2><br></br>";
         } else {
             mudarJogador();
-            t.fazerJogada(jogada, peca, tabuleiroJogo);
-            jogadas++;
+            tabuleiro.fazerJogada(jogada, tabuleiro.peca, tabuleiro.tabuleiro);
+
         }
 
-        if (t.verificarVencedor(jogadas, tabuleiroJogo) != null) {
-            comecou = true;
-            return t.verificarVencedor(jogadas, tabuleiroJogo) +
-            "<center><br><input type=\"button\" value=\"Atualizar\" onClick=\"\"></center>";
+        return "<h1><center>::::Jogo da Velha::::</center></h1><br>"
+                + "<br><h1><center>" + tabuleiro.mostrarTabuleiro() + "</center></h1>";
+    }
+
+    public String verificarEstado() {
+        if (tabuleiro.verificarVencedor(tabuleiro.jogadas, tabuleiro.tabuleiro) != null) {
+            return tabuleiro.verificarVencedor(tabuleiro.jogadas, tabuleiro.tabuleiro) + "<br>"
+                    + "<br>" + resetarJogo();
         }
         return "<h1><center>::::Jogo da Velha::::</center></h1><br>"
-                + "<h1><center>" + Jogo.this.mostrarTabuleiro() + "</center></h1>";
+                + "<h2><center>Nenhum ganhador! Continue jogando:</h2></center>"
+                + "<h1><center>" + tabuleiro.mostrarTabuleiro() + "</center></h1>";
+    }
+    
+    public String resetarJogo() {
+        tabuleiro = new Tabuleiro();
+        tabuleiro.resetarTabuleiro();
+        return "<h1><center>::::Jogo da Velha::::</center></h1><br>"+
+                tabuleiro.mostrarTabuleiro();
     }
 }

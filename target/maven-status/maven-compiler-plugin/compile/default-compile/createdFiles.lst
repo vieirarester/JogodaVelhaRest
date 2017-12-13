@@ -1,4 +1,6 @@
 Teste.class
 Princesa.class
 br/ifpe/rest/Jogo.class
+br/ifpe/rest/Tabuleiro.class
+br/ifpe/rest/JogoRest.class
 br/ifpe/rest/Rest.class
