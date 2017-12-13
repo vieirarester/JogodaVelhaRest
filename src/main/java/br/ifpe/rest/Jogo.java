@@ -34,11 +34,13 @@ public class Jogo {
 
     public String mostrarTabuleiro() {
         String mostrarTabuleiro = "";
+        mostrarTabuleiro+="<table align=\"center\" border=\"6\" style=\"width: 300px; height: 300px\">";
         for (int i = 0; i < tabuleiro.length; i++) {
+            mostrarTabuleiro+="<tr>";
             for (int j = 0; j < tabuleiro.length; j++) {
-                mostrarTabuleiro += tabuleiro[i][j] + " |";
+                mostrarTabuleiro += "<td style=\"width: 93px\"><h1 id=\"1\" align=\"center\">"+tabuleiro[i][j]+"</h1></td>";
             }
-            mostrarTabuleiro = mostrarTabuleiro + "<br>";
+            mostrarTabuleiro = mostrarTabuleiro + "</tr>";
         }
         return mostrarTabuleiro;
     }
@@ -74,7 +76,7 @@ public class Jogo {
 
         if (!(t.verificarJogada(jogada, tabuleiroJogo))) {
             return "<h1><center>::::Jogo da Velha::::</center></h1><br>"
-                    + "<h1><center>" + tabuleiroJogo.mostrarTabuleiro() + "<br>" + "Jogada invalida! Por favor, jogue novamente: </center></h1>";
+                    + "<h1><center>" + tabuleiroJogo.mostrarTabuleiro()+ "Jogada incorreta! Por favor, jogue novamente: </center></h1></br>";
         } else {
             mudarJogador();
             t.fazerJogada(jogada, peca, tabuleiroJogo);
