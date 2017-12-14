@@ -88,22 +88,24 @@ public class Tabuleiro {
             vencedor = "<h1><center>DEU VELHA!</center></h1>";
         }
 
-        vitoria[0] = tabuleiro[0][0] + " |" + tabuleiro[0][1] + " |" + tabuleiro[0][2];
-        vitoria[1] = tabuleiro[1][0] + " |" + tabuleiro[1][1] + " |" + tabuleiro[1][2];
-        vitoria[2] = tabuleiro[2][0] + " |" + tabuleiro[2][1] + " |" + tabuleiro[2][2];
+        vitoria[0] = tabuleiro[0][0] + tabuleiro[0][1] + tabuleiro[0][2];
+        vitoria[1] = tabuleiro[1][0] + tabuleiro[1][1] + tabuleiro[1][2];
+        vitoria[2] = tabuleiro[2][0] + tabuleiro[2][1] + tabuleiro[2][2];
 
-        vitoria[3] = tabuleiro[0][0] + " |" + tabuleiro[1][0] + " |" + tabuleiro[2][0];
-        vitoria[4] = tabuleiro[0][1] + " |" + tabuleiro[1][1] + " |" + tabuleiro[2][1];
-        vitoria[5] = tabuleiro[0][2] + " |" + tabuleiro[1][2] + " |" + tabuleiro[2][2];
+        vitoria[3] = tabuleiro[0][0] + tabuleiro[1][0] + tabuleiro[2][0];
+        vitoria[4] = tabuleiro[0][1] + tabuleiro[1][1] + tabuleiro[2][1];
+        vitoria[5] = tabuleiro[0][2] + tabuleiro[1][2] + tabuleiro[2][2];
 
-        vitoria[6] = tabuleiro[0][0] + " |" + tabuleiro[1][1] + " |" + tabuleiro[2][2];
-        vitoria[7] = tabuleiro[2][0] + " |" + tabuleiro[1][1] + " |" + tabuleiro[0][2];
+        vitoria[6] = tabuleiro[0][0] + tabuleiro[1][1] + tabuleiro[2][2];
+        vitoria[7] = tabuleiro[2][0] + tabuleiro[1][1] + tabuleiro[0][2];
 
         for (int i = 0; i < vitoria.length; i++) {
-            if (vitoria[i].equals("X |X |X")) {
-                vencedor = "<h1><center>JOGADOR 1 VENCEU!</center></h1>";
-            } else if (vitoria[i].equals("O |O |O")) {
-                vencedor = "<h1><center>JOGADOR 2 VENCEU!</center></h1>";
+            if (vitoria[i].equals("XXX")) {
+                vencedor = "<h1><center>JOGADOR (X) VENCEU!</center></h1>";
+                break;
+            } else if (vitoria[i].equals("OOO")) {
+                vencedor = "<h1><center>JOGADOR (O) VENCEU!</center></h1>";
+                break;
             }
         }
         return vencedor;
