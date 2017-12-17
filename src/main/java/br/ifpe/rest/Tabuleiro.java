@@ -14,6 +14,10 @@ public class Tabuleiro {
     static String peca;
     static int jogadas = 0;
     static String[][] tabuleiro = {{"1", "2", "3"}, {"4", "5", "6"}, {"7", "8", "9"}};
+    
+    public String[][] getTabuleiro(){
+        return this.tabuleiro;
+    }
 
     public String resetarTabuleiro(){
         String tabuleiroResetado="";
